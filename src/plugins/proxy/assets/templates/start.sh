@@ -25,9 +25,9 @@ echo "Removed $APPNAME-letsencrypt"
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
 sudo docker pull jrcs/letsencrypt-nginx-proxy-companion:latest
-sudo docker pull jwilder/nginx-proxy
+sudo docker pull frederikbosch/nginx-proxy
 set -e
-echo "Pulled jwilder/nginx-proxy and jrcs/letsencrypt-nginx-proxy-companion"
+echo "Pulled frederikbosch/nginx-proxy and jrcs/letsencrypt-nginx-proxy-companion"
 
 # This updates nginx for all vhosts
 NGINX_CONFIG="client_max_body_size $CLIENT_UPLOAD_LIMIT;";
