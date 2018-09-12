@@ -90,7 +90,7 @@ sleep 15s
    <% if(typeof sslConfig.autogenerate === "object")  { %>
     echo "Running autogenerate"
     # Get the nginx template for nginx-gen
-    wget https://raw.githubusercontent.com/jwilder/nginx-proxy/master/nginx.tmpl -O /opt/$APPNAME/config/nginx.tmpl
+    wget https://raw.githubusercontent.com/frederikbosch/nginx-proxy/master/nginx.tmpl -O /opt/$APPNAME/config/nginx.tmpl
 
     # Update nginx config based on user input or default passed by js
 sudo cat <<EOT > /opt/$APPNAME/config/nginx-default.conf
@@ -100,7 +100,7 @@ EOT
     # We don't need to fail the deployment because of a docker hub downtime
     set +e
     sudo docker pull jrcs/letsencrypt-nginx-proxy-companion:$LETS_ENCRYPT_VERSION
-    sudo docker pull jwilder/nginx-proxy:$NGINX_PROXY_VERSION
+    sudo docker pull frederikbosch/nginx-proxy:$NGINX_PROXY_VERSION
     set -e
 
     echo "Pulled autogenerate images"
