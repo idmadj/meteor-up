@@ -25,9 +25,9 @@ echo "Removed $APPNAME-letsencrypt"
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
 sudo docker pull jrcs/letsencrypt-nginx-proxy-companion:latest
-sudo docker pull frederikbosch/nginx-proxy
+sudo docker pull idmadj/nginx-proxy
 set -e
-echo "Pulled frederikbosch/nginx-proxy and jrcs/letsencrypt-nginx-proxy-companion"
+echo "Pulled idmadj/nginx-proxy and jrcs/letsencrypt-nginx-proxy-companion"
 
 # This updates nginx for all vhosts
 NGINX_CONFIG="client_max_body_size $CLIENT_UPLOAD_LIMIT;";
@@ -54,7 +54,7 @@ sudo docker run \
   -v /opt/$APPNAME/config/html:/usr/share/nginx/html \
   -v /opt/$APPNAME/config/nginx-default.conf:/etc/nginx/conf.d/my_proxy.conf:ro \
   -v /var/run/docker.sock:/tmp/docker.sock:ro \
-  jwilder/nginx-proxy
+  idmadj/nginx-proxy
 echo "Ran nginx-proxy as $APPNAME"
 
 sleep 2s
