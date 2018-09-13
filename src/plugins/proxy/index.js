@@ -22,7 +22,7 @@ export function prepareConfig(config) {
     config.app.env.HTTP_FORWARDED_COUNT || 1;
 
   if (config.proxy.ssl && config.proxy.ssl.letsEncryptEmail) {
-    config.app.env.LETSENCRYPT_HOST = config.proxy.domains;
+    config.app.env.LETSENCRYPT_HOST = config.proxy.domains.replace(/:\d+/g,''); // Trim ports
     config.app.env.LETSENCRYPT_EMAIL = config.proxy.ssl.letsEncryptEmail;
   }
 
