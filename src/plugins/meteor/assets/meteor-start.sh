@@ -4,6 +4,7 @@ set -e
 
 APP_DIR=/opt/<%=appName %>
 IMAGE=mup-<%= appName.toLowerCase() %>
+PRIVATE_REGISTRY=<%- privateRegistry ? 0 : 1 %>
 
 <% if (removeImage) { %>
 echo "Removing images"
@@ -11,12 +12,12 @@ echo "Removing images"
 # This command is only run during a deploy.
 # Removes the latest image, so the start script will use the bundle instead
 sudo docker rmi $IMAGE:latest || true
-docker images
+sudo docker images
 <% } %>
 
 # save the last known version
 cd $APP_DIR
-if sudo docker image inspect $IMAGE:latest >/dev/null; then
+if sudo docker image inspect $IMAGE:latest >/dev/null || [ "$PRIVATE_REGISTRY" == "0" ]; then
   echo "using image"
   sudo rm -rf current || true
 else
@@ -31,6 +32,7 @@ else
   sudo docker rmi $IMAGE:previous || true
 fi
 
+# TODO: clean up the last folder when the private registry has a previous image
 if sudo docker image inspect $IMAGE:previous >/dev/null; then
   echo "removing last"
   sudo rm -rf last
